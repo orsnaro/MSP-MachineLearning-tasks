@@ -1,0 +1,270 @@
+################VS code#############IMPORTANT only
+ctr+ shift+ p (all shortcuts vs code)
+(NOT DEFAULT) shift + ctrl + alt + f (fetch or one mouse button using xmouse)
+(NOT DEFAULT)shift + ctrl + alt + c (commit all to local or one mouse button using xmouse)
+(NOT DEFAULT)shift + p (push all to remote)
+(NOT DEFAULT)shift + p (push all to remote)
+(NOT DEFAULT) ~ + Q (toggle side activity bar))
+(NOT DEFAULT)ctrl + j/k/l/i (move cursor a word 'instead of arrows')
+(NOT DEFAULT)ctrl + alt + j/l (select word lift or right)
+
+ctrl+p   (switch tap)
+ctrl+b (close side bar )
+alt+`  (close terminal side)
+ctrl + g (go to line X)
+ctrl + 0 ( go outside bracket)
+
+
+shift+ctrl+/ (jmp to matching bracket)
+shift + d    (delete line)
+ctrl + /     (comment lines)
+shift + alt + up/down   (duplicate selected lines)
+SHIFT + K (edit highlighted)
+ctrl + space (suggestions)
+(NOT DEFAULT) win+F5  (to use vscode debugger <build>)
+(NOT DEFAULT) win+F6   ( to use vscode debugger <run>)
+ctrl + alt + N (to build and run  using code runner in terminal <no debugging> )
+
+
+--> for more  https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf
+
+
+
+################ (Cmder ( bash + CMD + powershell) ############# IMPORTANT only
+
+
+
+
+code
+--> opens vs code
+
+ctrl +c   OR   q
+----> terminate current operation
+
+$t
+----> seperate mutliple commands in alias
+
+$*
+---> get all parameters in alias  ( u can get only one parameter $1)
+-->OR u can use up to 10 parameters in terminl from $1 to $9
+--> SOME TERMINALS CAN ACCEPT MORE USING ${NUM OF PARAMS}
+
+
+command | clip   OR clip < filename.txt
+--->   copy terminal o\p or any .txt to the clipboard
+
+CHDIR /d  drive: path
+--> (to change to another partion or drive)
+
+start filename.exe (
+--> (open any exe in directory)
+
+
+dir  "\*part_of_filename*"  /s
+--> searches for ur file (for linux and cmder u can use 'find' also try find --help)
+-->The backslash tells dir to search from the root directory of the current drive.
+--> to search for a dit not a file use:
+ dir "\*part_of_dir_name*" /AD /S 
+--> /A- Displays files with specified attributes. D-May the attribute be Directories
+
+xxd filename.extention 
+--> to memory view the file in hexadecimal dump (for bash only + cmder)
+xxd filename.extention | vim - 
+--> same as previous put to open it inside vim
+
+*Tab manipulation
+Ctrl + T : New tab dialog (maybe you want to open cmd as admin?)
+Ctrl + W : Close tab
+Ctrl + D : Close tab (if pressed on empty command)
+Shift + Alt + #Number : Fast new tab: 1 - CMD, 2 - PowerShell
+Ctrl + Tab : Switch to next tab
+Ctrl + Shift + Tab : Switch to previous tab
+Ctrl + #Number : Switch to tab #Number
+Alt + Enter: Fullscreen
+
+*Shell  
+Ctrl + Alt + U : Traverse up in directory structure (lovely feature!)
+End, Home, Ctrl : Traversing text with as usual on Windows
+Ctrl + R : History search
+Shift + Mouse : Select and copy text from buffer
+
+
+################ (Git) ############# IMPORTANT only
+
+create-shortcut "source path" "destination path"
+--> create a shortcut (must apend destination path with "ShortcutName.lnk")
+
+git checkout   "hash or branch name"
+--> move head (ure current snapshot) to older snapshot of ur dir 
+--> or move head to another local branch
+
+git fetch --prune 
+--> delete remote ref branches that still shows after u delete them
+
+
+
+git rebase -i head~(number of commits before current that you want to delete)
+--> will open an editor jsut put 'd' before any commit u want to delete
+--> after that save and close editor 
+
+git push -f to final update the commit histroy at remote  
+-- > all commits u done 'd' before them gone for ever !
+
+
+all important commands r here :
+https://dev.classmethod.jp/articles/git-bash-commands/
+https://www.youtube.com/watch?v=2sjqTHE0zok
+https://www.youtube.com/playlist?list=PL6gx4Cwl9DGAKWClAD_iKpNC0bGHxGhcx
+
+
+################ (CMD & power shell) ############# IMPORTANT only
+
+help <ur command> 
+or <ur command> /? 
+or <ur command>  --help
+--> to read documentaion for the command u want (last one for cmder and linux only)
+
+to use help in cmd 
+
+*note:  using '/' or '\' is interchangable in cmd -most if time- also 'tab' will autocomplete ur command
+
+code
+--> opens vs code
+
+start filename.exe 
+--> (open any exe in directory)
+
+start/min filename.exe 
+--> (start any exe minimized)
+
+command |clip   OR    clip <filename.txt
+---> copy terminal  or any .txt to clip board
+
+type nul > filename.txt
+---> to make new .txt file
+---> to write to file use (@echo ur text >> filename.txt) '>>' to append in new line not to overwrite
+---> also check cat command and cp or copy on alzero crash course (link is down).
+
+
+'cd .\folder1\folder2'                 
+ --> change directory to a one inside ur current directory (dont miss dot in begining)
+
+'cd C:\folder1\folder2'              
+ --> change directory to a totally different one (u need to type full path starting from partition letter )
+
+'cd ..'                              
+  --> go back in directory only one location ( too location would be 'cd ..\..')
+
+CHDIR /d  drive: path
+--> (to change to another partion or drive)
+
+'mkdir .\foldername'                   
+--> make new folder inside current directory
+
+'Remove-Item 'D:\temp\Test Folder1' 
+--> removes the folder but it must be empty (to force remove append -recurse)
+
+'New-Item filename.txt -ItemType file'                            
+--> make a new file (u can make it .cpp and it will open in txt normally)
+
+'New-Item filename.txt -path [UR FULL PATH HERE] -ItemType file'  
+--> make a new file in another dir (u can make it .cpp and it will open in txt normally)
+
+1..5 | foreach { new-item "FILENAME$_.txt" }
+--> ***POWER SHELL ONLY!*** --> make multiple new files -5 in this example -  (1st file = FILENAME1 2nd  file= FILENAME2 ...)(make sure to apend by '$_' and if any thing comes after it put space between them)
+
+1..5 | foreach { new-item -path [UR FULL PATH] }
+-->multiple files in another dir (u can make an file typ like .cpp) ***POWER SHELL ONLY!***
+
+'get-childitem'                         
+--> will list all content -files and folders- inside current directory 
+
+'g++ filname.cpp -o filename.exe' ; .\filename.exe'
+--> ***POWER SHELL ONLY!*** (compile and run filname.exe in one statement)(filename.exe could be written only filename)
+--> to do same in cmd in one command use '&&' instead of ';' (.\filename --> here'\' is NOT interchangable with '/')
+
+'g++ -c filname.cpp -o filename.exe' ; .\filename.exe'
+---> '-c' to just only compile filname not link it (output file is filename.o)
+
+====> for more cpp commands in cmd : https://www.makeuseof.com/tag/15-cmd-commands-every-windows-user-know/
+
+'notepad'
+--> open standard notepad
+
+'cls'
+--> clears all cmd screen
+
+'Measure-Command {start-process 'FILE U WANT TO EXECUTE no qoutes!' -Wait}'
+----> to calc execution time taken in this .exe file runtime.
+
+
+====> for more usefull  general 'power shell' and 'cmd' commands : https://www.makeuseof.com/tag/15-cmd-commands-every-windows-user-know/
+
+====> crash CLI course : https://youtube.com/playlist?list=PLDoPjvoNmBAxzNO8ixW83Sf8FnLy_MkUT
+
+
+################CODELITE#############IMPORTANT only
+'ctrl+up\down' to swap lines places
+'end' to go to the end of the line
+'home' to go to the begining of line
+'ctrl+tap' to switch between taps
+'ctrl+y' redo last undo
+'ctrl+tap+left or right' to delete word at once
+'ctrl+scroll' zoom in or ou
+'ctrl+shift+p' open  kebindings in Atom Editor
+'ctrl+,' open settings in Atom editor
+'Alt+F3' select only next same word  (ATOM shortcut)
+'Alt+d' select all same next word (ATOM)
+'ctrl+f' find and replace (ATOM)
+select same word  or edit same word (not in codelite)  T_T
+
+=====> all ECLIPSE  shortcut ctrl+ shft+L (see keybindings)
+very usefull explanation for c functions at : https://www.ibm.com/support/knowledgecenter/ssw_ibm_i_74/rtref/scanf.htm
+
+################ATOM#############IMPORTANT only
+
+'ctrl+shift+p' open  kebindings in Atom Editor
+'ctrl+,' open settings in Atom editor
+'Alt+F3' select only next same word  (ATOM shortcut)
+'Alt+d' select all same next word (ATOM)
+'ctrl+f' find and replace (ATOM)
+
+======> more ATOM  shortcuts https://github.com/nwinkler/atom-keyboard-shortcuts
+
+################ECLIPSE#############IMPORTANT only
+
+
+macro for build and run in eclipse (f12)
+
+ctrl+d = delete all line
+
+ctrl+shift+delete = delete to line end
+
+ctrl +alt + up or down = duplicate line
+
+alt + up or down= move line
+
+alt+/ = auto complete
+
+ctrl+space = auto complete +
+
+alt+ shift +z = auto wrap code 
+
+ctrl+f = find and replace/replace all
+
+ctrl+k= find next 
+
+ctrl+shift+k+ find previous
+
+ctrl+shift+f= auto reformate code
+
+ctrl+b =build code 
+
+ctrl+y=redo
+
+ctrl+# = commit
+
+ctr+shift+l= shortcut menu
+
+
+  
