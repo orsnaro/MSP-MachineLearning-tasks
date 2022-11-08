@@ -1,0 +1,18 @@
+moslty i'll use prezi and shared screen of my monitor
+- the prezi theme will be OS word itslef and all slides make the letter o and screen
+- intro. your self (1min)
+- break up the presentation to 3 main part ( 2 min)
+- do your start ( probably some console example + dos + cmd  history)
+- manual example using gui + one example using terminal 
+- + example that will need a .batch .sh( terminal scribting language  source file ) or pyhton OS library to do more effecient
+-start breaking the library main method 10 - 15 method  
+- do small elegant code example using the library
+-end ( recab_
+-each section after it receive and answer any questions
+
+
+
+-sources:
+https://docs.python.org/3/library/os.html
+https://www.geeksforgeeks.org/os-module-python-examples/
+https://ss64.com/
