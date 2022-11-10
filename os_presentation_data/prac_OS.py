@@ -1,12 +1,14 @@
 from inspect import getmembers , isfunction ,isclass , ismethod
-import os
+import os ,signal
 
+pid = 14044
+os.kill(pid, signal.SIGSTOP)
 
 # print ( getmembers(os,isfunction))
-os.system("cls")
-print(type(os.name))
-print(os.error)
-
+# os.system("cls")
+# print(type(os.name))
+# print(os.error)
+# os.rmdir("testforshell")
 # print(os.getcwd())
 # cwd = os.getcwd()
 # os.chdir("../")
