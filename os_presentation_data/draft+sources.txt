@@ -11,6 +11,8 @@ moslty i'll use prezi and shared screen of my monitor
 -each section after it receive and answer any questions
 
 extra notes : 
+
+
 7. os.path.exists(): This method will check whether a file exists or not by passing the name of the file as a parameter. OS module has a sub-module named PATH by using which we can perform many more functions. 
  
 8. os.getsize()
