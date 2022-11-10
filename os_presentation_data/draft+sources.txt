@@ -1,5 +1,5 @@
 moslty i'll use prezi and shared screen of my monitor
-- the prezi theme will be OS word itslef and all slides make the letter o and screen
+- the prezi theme will be 'OS' word itslef and all slides make the letter o and screen
 - intro. your self (1min)
 - break up the presentation to 3 main part ( 2 min)
 - do your start ( probably some console example + dos + cmd  history)
@@ -16,3 +16,5 @@ moslty i'll use prezi and shared screen of my monitor
 https://docs.python.org/3/library/os.html
 https://www.geeksforgeeks.org/os-module-python-examples/
 https://ss64.com/
+https://www.geeksforgeeks.org/difference-between-python-and-bash/
+https://www.oreilly.com/library/view/python-for-unix/9780596515829/ch01.html
