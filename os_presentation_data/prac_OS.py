@@ -2,7 +2,7 @@ from inspect import getmembers , isfunction ,isclass , ismethod
 import os ,signal
 
 pid = 14044
-os.kill(pid, signal.SIGTERM)##terminate
+# os.kill(pid, signal.SIGTERM)##terminate
 
 # print ( getmembers(os,isfunction))
 # os.system("cls")
@@ -18,4 +18,5 @@ os.kill(pid, signal.SIGTERM)##terminate
 #     print ( dirnames) 
 #     print (filenames)    
 
+os.popen("draft+sources.txt")
 

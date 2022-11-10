@@ -10,6 +10,69 @@ moslty i'll use prezi and shared screen of my monitor
 -end ( recab_
 -each section after it receive and answer any questions
 
+extra notes : 
+7. os.path.exists(): This method will check whether a file exists or not by passing the name of the file as a parameter. OS module has a sub-module named PATH by using which we can perform many more functions. 
+ 
+8. os.getsize()
+
+16. os.path.join() :
+This method joins various path components with exactly one directory separator (“/”) following each non-empty part except for the last path component. If the last path component is empty then a directory separator (“/”) is put at the end. This method returns a string with the concatenated path.
+
+
+17. os.path.basename() :
+This method is used to get the base name in a specified path. The method returns a string value that represents the base name of the specified path.
+
+
+18. os.path.split() :
+This method splits the pathname into a pair of head and tail. Here, the tail is the last pathname component and the head is everything that comes before it. The method returns a tuple of the head and tail of the specified path.
+
+os module path split
+19. os.path.dirname() :
+This method returns the directory name from the path given.
+
+ 
+
+
+20. os.path.commonprefix() :
+This method returns the longest path prefix which is a prefix for all the paths in the specified list.
+
+
+21. os.path.getmtime() :
+This method returns the time of the last modification of the path.
+
+22. os.path.isfile()
+16. os.path.join() :
+This method joins various path components with exactly one directory separator (“/”) following each non-empty part except for the last path component. If the last path component is empty then a directory separator (“/”) is put at the end. This method returns a string with the concatenated path.
+
+os join
+17. os.path.basename() :
+This method is used to get the base name in a specified path. The method returns a string value that represents the base name of the specified path.
+
+os path
+18. os.path.split() :
+This method splits the pathname into a pair of head and tail. Here, the tail is the last pathname component and the head is everything that comes before it. The method returns a tuple of the head and tail of the specified path.
+
+os module path split
+19. os.path.dirname() :
+This method returns the directory name from the path given.
+
+ 
+
+dirname
+20. os.path.commonprefix() :
+This method returns the longest path prefix which is a prefix for all the paths in the specified list.
+
+os module commonprefix
+21. os.path.getmtime() :
+This method returns the time of the last modification of the path.
+
+os gettime
+22. os.path.getatime() :
+This method returns the time of the last access of the path.
+
+os module getatime
+23. os.path.getctime() :~
+
 
 
 -sources:
