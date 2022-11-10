@@ -17,7 +17,7 @@ extra notes :
  
 8. os.getsize()
 
-16. os.path.join() :
+16. os.path.join("c://users//","omar") :
 This method joins various path components with exactly one directory separator (“/”) following each non-empty part except for the last path component. If the last path component is empty then a directory separator (“/”) is put at the end. This method returns a string with the concatenated path.
 
 
