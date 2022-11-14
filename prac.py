@@ -1,10 +1,3 @@
-from inspect import getmembers , isfunction ,isclass , ismethod
-import os ,signal
+import cv2 , numpy
 
-cwd = os.getcwd()
-print(cwd)
-
-os.system("tree")
-
-
-
+print ( cv2.__version__)
