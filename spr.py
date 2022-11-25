@@ -39,18 +39,10 @@ class Log:
 
 class Cardentials:  # TODO : use hash function and dictionary
     @staticmethod
-    def toggle_rand_hash_seed(_random: bool) -> None:
-        _random = bool(_random)
-        
-        if _random:
-            hashseed = os.getenv('PYTHONHASHSEED')
-            if hashseed:
-                os.environ['PYTHONHASHSEED'] = str(random.randint(1,400))
-                os.execv(sys.executable, [sys.executable] + sys.argv)
-        else : 
-            hashseed = os.getenv('PYTHONHASHSEED')
-            if not hashseed:
-                os.environ['PYTHONHASHSEED'] = '0'
-                os.execv(sys.executable, [sys.executable] + sys.argv)
+    def disable_rand_hash() -> "WARNING THIS FUNCTION MAY CHANGE BUILT-IN 'hash()' permenentally":
+        hashseed = os.getenv('PYTHONHASHSEED')
+        if not hashseed:
+            os.environ['PYTHONHASHSEED'] = '0'
+            os.execv(sys.executable, [sys.executable] + sys.argv)
 
     
