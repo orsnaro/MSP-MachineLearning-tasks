@@ -39,7 +39,8 @@ class Log:
 
 class Cardentials:  # TODO : use hash function and dictionary
     @staticmethod
-    def disable_rand_hash() -> "WARNING THIS FUNCTION MAY CHANGE BUILT-IN 'hash()' permenentally":
+    def disable_rand_hash() -> None:
+        """WARNING THIS FUNCTION MAY CHANGE BUILT-IN 'hash()' permenentally"""
         hashseed = os.getenv('PYTHONHASHSEED')
         if not hashseed:
             os.environ['PYTHONHASHSEED'] = '0'
