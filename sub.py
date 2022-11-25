@@ -1,4 +1,4 @@
-from super import *
+from spr import *
 
 #subs from person
 class prof ( Person ) :
