@@ -29,7 +29,7 @@ def main_gmail():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                'myapp_google_approve_creden.json', SCOPES)
+                'credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
@@ -37,16 +37,21 @@ def main_gmail():
 
     try:
         # Call the Gmail API
+        #uncomment next 2 lines to grant access using API_KEY 
+        # API_KEY : str = ... #from your google cloud project
+        # service = build ( 'gmail' , 'v1' , developerKey= API_KEY)
+
+        #comment nextline if u used API_KEY
         service = build('gmail', 'v1', credentials=creds)
         results = service.users().labels().list(userId='me').execute()
         labels = results.get('labels', [])
 
-        if not labels:
-            print('No labels found.')
-            return 
-        print('Labels:')
-        for label in labels:
-            print(label['name'])
+        # if not labels:
+        #     print('No labels found.')
+        #     return 
+        # print('Labels:')
+        # for label in labels:
+        #     print(label['name'])
 
     except HttpError as error:
         # TODO(developer) - Handle errors from gmail API.
@@ -55,5 +60,5 @@ def main_gmail():
 
     return enm.GMAIL_OK
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     main_gmail()
