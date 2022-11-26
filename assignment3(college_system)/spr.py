@@ -27,7 +27,7 @@ class Speciality: ...
 class Log:
     """history of all interactions with college system : 
        1)startup 2)quit 3) login 4) new_ac"""
-       
+
     session_counter = 0 #make logCntrFile later to save total log instances
     tmp_logs : list = []
     crnt_user_id  : str = None
@@ -51,11 +51,13 @@ class Log:
         Log.incCntr()
         cls.pc_name = getpass.getuser()
         cls.time_Stamp = datetime.datetime.now()
-        instance = [str(cls.time_stamp) , str(state) ,str(entry_type) , str(cls.pc_name) , cls.crnt_user_id ]
+        instance = [str(cls.time_stamp) , str(state) ,\
+                    str(entry_type) , str(cls.pc_name) , cls.crnt_user_id ]
+                    
         cls.tmp_logs.append(instance)
 class Credentials:
     """Handled account sensitive data"""
-    tmp_creds : dict = [] #list of tuples #each element is tuple of (id(generated randonmly 8 chars exactly),passwordHASHED ( chars eactly))
+    tmp_creds = dict() #list of tuples #each element is tuple of (id(generated randonmly 8 chars exactly),passwordHASHED ( chars eactly))
     @classmethod
     def dump_cred(cls, cred_state: enm) -> enm:
         cred_file = open (r"cred.txt" , 'a')
@@ -73,7 +75,7 @@ class Credentials:
     def new_cred (cls , _pass : str) : #assume passwords gets here are validated before
         _pass = hash(_pass) # make sure hash seed is set to 0 !
         cls._user_id = str(random.randint(10000000,99999999))
-        cls.tmp_creds.append(cls._user_id , _pass)
+        cls.tmp_creds[cls._user_id] = _pass
         cls.set_crnt_user()
 
     @classmethod
