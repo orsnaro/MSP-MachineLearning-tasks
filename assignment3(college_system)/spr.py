@@ -24,10 +24,10 @@ class Building: ...
 class Speciality: ...
 
 
-    # TODO : log class will contain log_cntr_incrementer() ,tuple : date , pc name , state , type : startup , quit ,login , new   and save to college_log.txt - >
-    # TODO : (optional) ALL LINES IN .TXT MUST BE SAME LENGTH
 class Log:
-    """history of all interactions with college system : 1)startup 2)quit 3) login 4) new_ac"""
+    """history of all interactions with college system : 
+       1)startup 2)quit 3) login 4) new_ac"""
+       
     session_counter = 0 #make logCntrFile later to save total log instances
     tmp_logs : list = []
     crnt_user_id  : str = None
@@ -53,14 +53,6 @@ class Log:
         cls.time_Stamp = datetime.datetime.now()
         instance = [str(cls.time_stamp) , str(state) ,str(entry_type) , str(cls.pc_name) , cls.crnt_user_id ]
         cls.tmp_logs.append(instance)
-
-
-
-
-
-# ------------------------------- GLOBAL  METHODS --------------------------------
-
-# TODO : use hash function and dictionary and save to college_carden.text
 class Credentials:
     """Handled account sensitive data"""
     tmp_creds : dict = [] #list of tuples #each element is tuple of (id(generated randonmly 8 chars exactly),passwordHASHED ( chars eactly))
@@ -90,6 +82,11 @@ class Credentials:
     
 
 
+
+
+
+
+# ------------------------------- GLOBAL  METHODS --------------------------------
 
 # def disable_rand_hash() -> None:
 #     """WARNING THIS FUNCTION MAY CHANGE BUILT-IN 'hash()' *permenentally!!!*"""
