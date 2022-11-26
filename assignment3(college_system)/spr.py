@@ -109,7 +109,7 @@ def connect(con_typ: int) -> enm:
 
      # search first if Person.ids -> list of objects has the account in crnt session so dont make new one
         #if not int
-    elif con_typ == enm.CON_NEW:
+    elif con_typ == enm.CON_NEW:...
      # search first if Person.ids -> list of objects has the account in crnt session so dont make new one
 
 
