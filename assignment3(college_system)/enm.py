@@ -12,3 +12,6 @@ class enm:
     CON_LOG = 7
     GMAIL_OK = 8
     GMAIL_BAD = 9
+    CRED_OK = 10
+    CRED_FAIL = 11
+    
