@@ -39,17 +39,20 @@ class Log:
     def dump_log(cls, log_state: enm) -> enm:
         # cls.state_holder = None
         log_file = open (r"log.txt", 'a')
-        for log in  cls.tmp_log :
-            log_file.writelines(*log)
-
+        for i in range ( len(cls.tmp_logs)) :
+            for log in cls.tmp_logs[i] :
+                log_file.writelines(log + ' ')
+            log_file.writelines('\n')
         log_file.close()
 
     @classmethod
     #TODO : later add acc_id = crnt_session_user_id to new_entry()
-    def new_log (cls , state : enm , entry_type = -1 , pc_name = getpass.getuser()) -> enm :
+    def new_log (cls , state : enm , entry_type = -1) -> enm :
         Log.incCntr()
-        instance = [str(datetime.datetime.now()) , str(state) ,str(entry_type) , str(pc_name)]
-        cls.tmp_logs.append(str(instance)+'\n')
+        cls.pc_name = getpass.getuser()
+        cls.time_Stamp = datetime.datetime.now()
+        instance = [str(cls.time_stamp) , str(state) ,str(entry_type) , str(cls.pc_name) , cls.crnt_user_id ]
+        cls.tmp_logs.append(instance)
 
 
 
