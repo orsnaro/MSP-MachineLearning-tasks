@@ -67,7 +67,10 @@ class Credentials:
     @classmethod
     def dump_cred(cls, cred_state: enm) -> enm:
         cred_file = open (r"cred.txt" , 'a')
-        cred_file.writelines(*cls.tmp_creds)
+        for i in range ( len(cls.tmp_creds)) :
+            for cred in cls.tmp_creds[i] :
+                cred_file.writelines(cred + ' ')
+            cred_file.writelines('\n')
         cred_file.close()
 
     @classmethod
@@ -81,7 +84,9 @@ class Credentials:
         cls.tmp_creds.append(cls._user_id , _pass)
         cls.set_crnt_user()
 
-
+    @classmethod
+    def comp_cred(cls , _user: str , _hashed_pass : str) -> enm :  ...
+    
 
 
 
@@ -94,15 +99,17 @@ class Credentials:
 
 
 def connect(con_typ: int) -> enm:
-    crnt_user : Log = Log.crnt_user_id #id of the user (objet name of Person class  childs instances)
+    crnt_user = Log.crnt_user_id #id of the user (objet name of Person class  childs instances)
     con_state : enm = None
     if con_typ == enm.CON_LOG:
+        tmp_user = input ("UserID :\n>> ").strip()
+        tmp_pass = hash(getpass.getpass("Password : \n>> ").strip())
+        Credentials.comp_cred(tmp_user , tmp_pass)
+
      # search first if Person.ids -> list of objects has the account in crnt session so dont make new one
         #if not int
-        pass
     elif con_typ == enm.CON_NEW:
      # search first if Person.ids -> list of objects has the account in crnt session so dont make new one
-        pass
 
 
 def main_menu() -> enm:
