@@ -1,6 +1,7 @@
 from __future__ import print_function
 from enm import enm
 
+import getpass
 import os.path
 
 from google.auth.transport.requests import Request
@@ -54,11 +55,70 @@ def main_gmail():
         #     print(label['name'])
 
     except HttpError as error:
-        # TODO(developer) - Handle errors from gmail API.
         print(f'An error occurred: {error}')
         return enm.GMAIL_BAD
 
     return enm.GMAIL_OK
 
-# if __name__ == '__main__':
-    main_gmail()
+
+def enter_pass() :
+    sys_gmail_password = getpass.getpass("ADMIN Please Enter Your college system gmail password : \n>> ").strip()
+    print("  ", end = '')
+    for i in range(len(sys_gmail_password)) :
+        print ('*' ,  end ='')
+    print ('\n')
+    print (sys_gmail_password)
+    return sys_gmail_password
+
+def gmail_connect() : 
+    print ( "Starting  new Connection session with Gmail... \n\n")
+    state = main_gmail() #validate that google auth your program through a saved carden file
+    if  state == enm.GMAIL_OK : 
+        print ("*SUCESSS: Gmail-Api Granted Access to System Succesfully!* \n\n")
+    else :
+        print("*FAIL: System might not Be  validated to Access  gmail!* \n please Auth. your system program  OR check your auth. certificate file... \n\n")
+
+    try:
+        # port = 465  # For SSL -> other SMTP serverports can be found in web
+        port = 587
+        from_sys_gmail ="system.python.web@gmail.com"
+        sys_key = enter_pass()
+        to_gmail_add = input("Please Enter you Gmail Address ex.: test@gmail.com \n>> ").strip()
+
+        # Create a secure SSL context
+        context = ssl.create_default_context()
+
+        server = smtplib.SMTP("smtp.gmail.com",port)
+        #establish smtp ssl gmail server session
+        server.starttls(context = context)
+        server.login(from_sys_gmail, sys_key)
+        print("linking college system  Gmail to SMTP_SSL Gmail server...\n\n ")
+        sys_key = hash (sys_key) #hash it for your own security
+        # time.sleep(1)
+        print ("*SUCESSS: college system is linked to SMTP_SSL server* \n\n")
+        
+        #try send Your message here using - > server.sendmail()
+        message = """---------( *THIS IS TEST MESSAGE* )--------- \n\n\nYou Have Successfully created your College Account!\n\n 
+        Please  note that you won't be able to retrieve your Login Data, \nSo keep Them somewhere  SAFE!\n\n
+        USER NAME: test_message\nPASSWORD : test_message \n\n -------*PLEASE DON'T REPLY TO THIS MESSAGE*-------"""
+        server.sendmail(from_sys_gmail , to_gmail_add , message)
+
+    except Exception as gmail_con_err :
+        os.system(r"clear")
+        print("*ERROR CONNECTING TO YOUR GMAIL*")
+        os.system(r"clear")
+        print("***ERROR CONNECTING TO YOUR GMAIL***")
+        print(gmail_con_err,"\n\n")
+        gmail_connect()
+    
+
+    finally : 
+        print (f"*SUCESSS: registration Email Has been sent to {to_gmail_add} * \n\n")
+        to_gmail_add = None #clear for end user data security
+        sys_key = None 
+        from_sys_gmail = None
+        print("*Gmail Session Ended* \n Deleting Cached User Data & Quiting session ...\n\n")
+        server.quit()
+
+if __name__ == '__main__':
+    gmail_connect()
