@@ -1,4 +1,5 @@
 from __future__ import print_function
+from enm import enm
 
 import os.path
 
@@ -12,7 +13,7 @@ from googleapiclient.errors import HttpError
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
 
 
-def main():
+def main_gmail():
     """Shows basic usage of the Gmail API.
     Lists the user's Gmail labels.
     """
@@ -28,7 +29,7 @@ def main():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                'gmail_creden.json', SCOPES)
+                'myapp_google_approve_creden.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
@@ -42,7 +43,7 @@ def main():
 
         if not labels:
             print('No labels found.')
-            return
+            return 
         print('Labels:')
         for label in labels:
             print(label['name'])
@@ -50,7 +51,9 @@ def main():
     except HttpError as error:
         # TODO(developer) - Handle errors from gmail API.
         print(f'An error occurred: {error}')
+        return enm.GMAIL_BAD
 
+    return enm.GMAIL_OK
 
 if __name__ == '__main__':
-    main()
+    main_gmail()
