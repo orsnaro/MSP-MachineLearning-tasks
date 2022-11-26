@@ -10,11 +10,9 @@ def main() :
             sys.exit(enm.MAIN_MEN_ER)
 
     
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
 
-dic = dict()
-dic["omar"] = 1
-dic["omarrr"] = 1
-for key , value in dic.items() :
-    print( key , value )
+
+# class test :
+   

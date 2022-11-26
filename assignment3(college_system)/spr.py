@@ -53,7 +53,7 @@ class Log:
         cls.time_Stamp = datetime.datetime.now()
         instance = [str(cls.time_stamp) , str(state) ,\
                     str(entry_type) , str(cls.pc_name) , cls.crnt_user_id ]
-                    
+
         cls.tmp_logs.append(instance)
 class Credentials:
     """Handled account sensitive data"""
@@ -61,10 +61,8 @@ class Credentials:
     @classmethod
     def dump_cred(cls, cred_state: enm) -> enm:
         cred_file = open (r"cred.txt" , 'a')
-        for i in range ( len(cls.tmp_creds)) :
-            for cred in cls.tmp_creds[i] :
-                cred_file.writelines(cred + ' ')
-            cred_file.writelines('\n')
+        for id , hashed  in cls.tmp_creds.items() :
+                cred_file.writelines( id + ' ' + hashed + '\n')
         cred_file.close()
 
     @classmethod
