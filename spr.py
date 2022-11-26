@@ -35,21 +35,23 @@ class Speciality: ...
 class Log:
     """history of all interactions with college system : 1)startup 2)quit 3) login 4) new_ac"""
     session_counter = 0
-    tmp_log = list()
+    tmp_log : list = []
     @classmethod
     def incCntr(cls) :
-        cls.session_counter += 1
+        cls.session_counter += 1 #maybe changed to total_logs_cntr
 
     @classmethod
     def dump_log(cls, log_state: enm) -> enm:
-        cls.state_holder = None
-        pass
+        # cls.state_holder = None
+        log_file = open (r"log.txt", 'a')
+        log_file.writelines(cls.tmp_log)
+        log_file.close()
 
     @classmethod
-    def new_entry (cls , state : enm , entry_type = None , acc = None ) -> enm :
+    def new_entry (cls , state : enm , entry_type = -1 , acc = -1 ) -> enm :
         Log.incCntr()
-        instance = [datetime.date.isocalendar]
-        cls.tmp_log = cls.tmp_log.append(instance)
+        instance = [str(datetime.datetime.now()) , str(state) ,str(entry_type) , str(acc)]
+        cls.tmp_log.append(str(instance)+'\n')
 
 
 
@@ -64,7 +66,7 @@ class Cardentials:
     """Handled account sensitive data"""
     @classmethod
     def dump_carden(cls, carden_state: enm) -> enm:
-        state_holder = None
+        # state_holder = None
         pass
 
 
@@ -77,7 +79,7 @@ def disable_rand_hash() -> None:
 
 
 def connect(con_typ: int) -> enm:
-    state_holder = None
+    # state_holder = None
     if con_typ == 1:
         pass
 
