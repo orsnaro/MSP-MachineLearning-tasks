@@ -63,7 +63,7 @@ class Log:
 # TODO : use hash function and dictionary and save to college_carden.text
 class Credentials:
     """Handled account sensitive data"""
-    tmp_creds = [] #list of tuples #each element is tuple of (id(generated randonmly 8 chars exactly),passwordHASHED ( chars eactly))
+    tmp_creds : dict = [] #list of tuples #each element is tuple of (id(generated randonmly 8 chars exactly),passwordHASHED ( chars eactly))
     @classmethod
     def dump_cred(cls, cred_state: enm) -> enm:
         cred_file = open (r"cred.txt" , 'a')
@@ -86,6 +86,7 @@ class Credentials:
 
     @classmethod
     def comp_cred(cls , _user: str , _hashed_pass : str) -> enm :  ...
+    #search in crnt creds then on txt or read whole txt and append to creds
     
 
 
