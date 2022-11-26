@@ -4,26 +4,18 @@ import math
 import os
 import random
 import sys
-
+import api_gmail
+import getpass
+import smtplib , ssl
 import numpy as np
+
+from  enm import enm
 # from enum import Enum
-run: bool = True
+RUN : bool = True
 
 
 
 # PARENT CLASSES
-class enm:
-    """since python doesnt has enum data-type 
-    all funtion states will use this values 
-    to implement good program signaling"""
-    MAIN_MEN_OK = 0
-    MAIN_MEN_QUIT = 1
-    MAIN_MEN_ER = 2
-    CON_ER = 3
-    CON_BAD_DATA = 4
-    CON_OK = 5
-
-
 class Person: ...
 
 class Building: ...
@@ -31,7 +23,8 @@ class Building: ...
 class Speciality: ...
 
 
-    # TODO : log class will contain log_cntr_incrementer() ,tuple : date , acc hint , state , type : startup , quit ,login , new   and save to college_log.txt - > ALL LINES IN .TXT MUS BE SAME LENGTH
+    # TODO : log class will contain log_cntr_incrementer() ,tuple : date , pc name , state , type : startup , quit ,login , new   and save to college_log.txt - >
+    # TODO : (optional) ALL LINES IN .TXT MUS BE SAME LENGTH
 class Log:
     """history of all interactions with college system : 1)startup 2)quit 3) login 4) new_ac"""
     session_counter = 0
@@ -48,9 +41,10 @@ class Log:
         log_file.close()
 
     @classmethod
-    def new_entry (cls , state : enm , entry_type = -1 , acc = -1 ) -> enm :
+    #TODO : later add acc_id = crnt_session_user_id to new_entry()
+    def new_entry (cls , state : enm , entry_type = -1 , pc_name = getpass.getuser() ) -> enm :
         Log.incCntr()
-        instance = [str(datetime.datetime.now()) , str(state) ,str(entry_type) , str(acc)]
+        instance = [str(datetime.datetime.now()) , str(state) ,str(entry_type) , str(pc_name)]
         cls.tmp_log.append(str(instance)+'\n')
 
 
@@ -79,11 +73,13 @@ def disable_rand_hash() -> None:
 
 
 def connect(con_typ: int) -> enm:
-    # state_holder = None
-    if con_typ == 1:
+    crnt_user : Person = Person.get_crnt_id_instance() #id of the user (objet name of Person class  childs instances)
+    con_state : enm = None
+    if con_typ == enm.CON_LOG:
+     # search first if Person.ids -> list of objects has the account in crnt session so dont make new one
         pass
-
-    elif con_typ == 2:
+    elif con_typ == enm.CON_NEW:
+     # search first if Person.ids -> list of objects has the account in crnt session so dont make new one
         pass
 
 
@@ -98,9 +94,9 @@ def main_menu() -> enm:
         Cardentials.dump_carden(enm.MAIN_MEN_OK)
         return enm.MAIN_MEN_QUIT
     elif int(op) == 2:
-        connect(int(op))
+        connect(enm.CON_NEW)
     elif int(op) == 1:
-        connect(int(op))
+        connect(enm.CON_LOG)
     else:
         Log.new_entry(enm.MAIN_MEN_ER)
         Log.dump_log(enm.MAIN_MEN_ER)
