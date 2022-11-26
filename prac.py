@@ -1,10 +1,10 @@
-from inspect import getmembers , isfunction ,isclass , ismethod
-import os ,signal
+import cv2 , numpy
 
-cwd = os.getcwd()
-print(cwd)
+imgmat = cv2.imread(". /tstimg.jpg", 0)
 
-os.system("tree")
+cv2.imshow("tsk1", imgmat)
+cv2.waitKey(0)
+
 
 
 
