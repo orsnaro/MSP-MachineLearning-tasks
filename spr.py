@@ -22,17 +22,11 @@ class enm:
     CON_BAD_DATA = 4
 
 
-class Person:
-    pass
+class Person: ...
 
+class Building: ...
 
-class Building:
-    pass
-
-
-class Speciality:
-    pass
-
+class Speciality: ...
 
 
     # TODO : log class will contain log_cntr_incrementer() ,tuple : date , acc hint , operation , type : startup , quit ,login , new   and save to college_log.txt
