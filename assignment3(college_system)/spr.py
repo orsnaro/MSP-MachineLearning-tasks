@@ -57,11 +57,11 @@ class Log:
         cls.tmp_logs.append(instance)
 class Credentials:
     """Handled account sensitive data"""
-    tmp_creds = dict() #list of tuples #each element is tuple of (id(generated randonmly 8 chars exactly),passwordHASHED ( chars eactly))
+    tmp_creds = dict() 
     @classmethod
     def dump_cred(cls, cred_state: enm) -> enm:
         cred_file = open (r"cred.txt" , 'a')
-        for id , hashed  in cls.tmp_creds.items() :
+        for id , hashed  in cls.tmp_creds.items() : # write line size here : 
                 cred_file.writelines( id + ' ' + hashed + '\n')
         cred_file.close()
 
