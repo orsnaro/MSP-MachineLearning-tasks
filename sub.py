@@ -1,28 +1,18 @@
 from spr import *
 
-#subs from person
-class prof ( Person ) :
-    pass
+#CHILDS OF PERSON
+class Prof ( Person ) : ...
 
-class employe ( Person ) :
-    pass
+class Student ( Person ) : ...
 
-class student ( Person ) :
-    pass
 
-#building subs 
-class lab (Building) :
-    pass
+#CHILDS OF BUILDING
+class Lab (Building) : ...
 
-class lecture_hall (Building) :
-    pass
+class Lecture_hall (Building) : ...
+    
 
-#sepciality subs
-class mech (Speciality) :
-    pass
+#CHILDS OF SPECIALITY
+class Mech (Speciality) : ...
 
-class elec (Speciality) :
-    pass
-
-class civil ( Speciality) :
-    pass
+class Elec (Speciality) : ...
