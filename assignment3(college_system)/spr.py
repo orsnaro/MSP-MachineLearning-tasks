@@ -10,12 +10,11 @@ import smtplib , ssl
 import numpy as np
 
 from  enm import enm
-# from enum import Enum
 RUN : bool = True
 
 
 
-# ----------------------------- PARENT CLASSES -------------------------------------
+       # ----------------------------- PARENT CLASSES -------------------------------------#
 class Person:
     ids = []
 
@@ -25,8 +24,8 @@ class Speciality: ...
 
 
 class Log:
-    """history of all interactions with college system : 
-       1)startup 2)quit 3) login 4) new_ac"""
+    """History of all interactions with college system : 
+       1)startup 2)quit 3) login 4) new_ac."""
 
     session_counter = 0 #make logCntrFile later to save total log instances
     tmp_logs : list = []
@@ -71,12 +70,12 @@ class Credentials:
         Log.crnt_user_id = cls._user_id
 
     @classmethod
-    def new_cred (cls , _pass : str , is_prof : bool , speciality : str) : #assume passwords gets here are validated before
+    def new_cred (cls , _pass : str , _is_prof : bool , _speciality : str) : #assume passwords gets here are validated before
         #TODO :if new menue to choose  prof or stu  and mech or elec 
         #TODO : (append 2 digits to user id  ==> prof = 1  or stu = 0 then elec= 1 or mech= 0) userid total length 10 chars
-        #TODO : appends two digits at end of ID to identfy prof or no and speciality
         _pass = hash(_pass) # make sure hash seed is set to 0 !
         cls._user_id = str(random.randint(10000000,99999999))
+        #TODO : appends two digits at end of ID to identfy prof or no and speciality
         cls.tmp_creds[cls._user_id] = _pass
         cls.set_crnt_user()
         return enm.CRED_OK, cls._user_id 
@@ -101,23 +100,95 @@ class Credentials:
         if  not found :
             return enm.CRED_ID_NEW , enm.CON_NEW
 
+class Elmenues :
+    @staticmethod
+    def main_menu() -> enm:
+        main_men_state = None
+        Log.new_log(enm.MAIN_MEN_OK , "Startup")
+        print("Main Menu : \n")
+        op = input(" 1) Log in\n\n 2) Create Account\n\n 3) Quit and save \n\n>> ")
 
+        if int(op) == 3:
+            Log.new_log(enm.MAIN_MEN_QUIT , "Quit") #type : Startup , quit ,login , new , show_log , show_cred ,  show_persons_data
+            return enm.MAIN_MEN_QUIT
+        elif int(op) == 2:
+            Log.new_log(enm.MAIN_MEN_QUIT , "New")
+            main_men_state = connect(enm.CON_NEW)
+        elif int(op) == 1:
+            Log.new_log(enm.MAIN_MEN_QUIT , "Login")
+            Credentials.dump_cred(enm.MAIN_MEN_OK)
+            main_men_state = connect(enm.CON_LOG)
+        else:
+            Log.new_log(enm.MAIN_MEN_ER , "Other" ) 
+            Log.dump_log(enm.MAIN_MEN_ER)
+            print("                              ***** ERROR : Invalid input *****\n")
+            time.sleep(2)
+            for i in range(2 , -1 , -1):
+                os.system(r"clear")
+                print(f"                         \nRestarting System in {i}...")
+                time.sleep(0.5)
+            os.system(r"clear")
+            Elmenues.main_menu()
+
+        if main_men_state == enm.CON_ER :
+            Elmenues.main_menu()
+        elif main_men_state == enm.CON_BAD_DATA :
+            return enm.MAIN_MEN_ER
+
+        else : #all done correctly
+            is_done = False
+            is_done = bool(int(input("*Type :*\n  '1' : to Quit and save \n  '0' : to go to Main menu \n>> ")))
+            if  is_done  : return enm.MAIN_MEN_QUIT
+            else : return enm.MAIN_MEN_RES
+
+    @staticmethod
+    def loged_menu ( log_type :  enm ) : ...
+        #TODO : if not new go to sys_menu : show (log and cred and all prof and student objects only if prof ) 
+        #TODO : if stud only can view his object (add fees and mails to his object later)
     
+    @staticmethod
+    def new_ac_menu( hashed_pass : str ) -> : 
+        tmp_is_prof = False
+        tmp_speciality = None
+        final_iD =  Credentials.new_cred(tmp_pass , is_prof , speciality )
+        return enm.CRED_DONE ,  final_iD
+       
+    @staticmethod
+    def sys_menu(id_type : enm) : ...
 
 
 
 
 
+           # ------------------------------- GLOBAL  METHODS --------------------------------#
 
-# ------------------------------- GLOBAL  METHODS --------------------------------
-#TODO : but all main funcs variation in one calss Elmainues and make them all static 
+def main() :
+    print(" \n \n ---------------------( Welcome to Omar's Engineering College System )----------------------\n\n")
+    while  RUN : #actually its not super loop it's for error
+        exit_state = Elmenues.main_menu() 
+        if exit_state == enm.MAIN_MEN_QUIT : 
+            Log.dump_log(enm.MAIN_MEN_OK)
+            Credentials.dump_cred(enm.MAIN_MEN_OK)
+            sys.exit(enm.MAIN_MEN_OK) 
+        elif exit_state == enm.MAIN_MEN_RES : continue
+        else : 
+            Log.new_log(enm.UNKNOWN , "Other" ) 
+            Log.dump_log(enm.UNKNOWN)
+            print("**SYSTEM TERMINATED UNEXPECTEDLY**")
+            sys.exit(enm.MAIN_MEN_ER)
 
-# def disable_rand_hash() -> None:
-#     """WARNING THIS FUNCTION MAY CHANGE BUILT-IN 'hash()' *permenentally!!!*"""
+# def disable_rand_hash_seed() -> 'str': 
+#     """
+#     -> WARNING THIS FUNCTION MAY CHANGE BUILT-IN 'hash()' *permenentally!!!* \n
+#     -> This function makes built-in hash() works as expected \n
+#        i.e. ( for same input only = same hashed output ) at any session \n
+#     -> so basically is makes PYTHONHASHSEDD = '0' to make it constant seed not random. \n
+#     """
 #     hashseed = os.getenv('PYTHONHASHSEED')
 #     if not hashseed:
 #         os.environ['PYTHONHASHSEED'] = '0'
 #         os.execv(sys.executable, [sys.executable] + sys.argv)
+#     return  hashseed
 
 
 def connect(con_typ: int) -> enm:
@@ -129,65 +200,34 @@ def connect(con_typ: int) -> enm:
         con_state= Credentials.comp_cred(tmp_user , tmp_pass)
         if con_state[0] == enm.CRED_ID_FOUND and con_state[1] == enm.CRED_OK : #valid login
             print ("*Signed in Successfully!*\n\n")
-            loged_menu(con_typ) 
+            Elmenues.loged_menu(con_typ) 
         else : 
             print("*LOGIN FAIL!*\n")
             if con_state[0] == enm.CRED_ID_NEW :
                 print ("THIS ID is *not used* . please retry ...\n\n")
-                main_menu()
+                Elmenues.main_menu()
             elif con_state[1] == enm.CRED_FAIL :
                 print ("*WRONG PASSWORD*. please retry...\n\n")
-                main_menu()
+                con_state[0] = enm.CON_ER
+                return (con_state[0])
 
     elif con_typ == enm.CON_NEW:
-        print("*User-ID Will Be Generated Auto*\n")
+        print("*User-ID Will Be Auto Generated*\n")
         #TODO : set password restrictions -> start with atleast 8 chars/numbers
         tmp_pass = hash(getpass.getpass("Password : \n>> ").strip())
-        is_prof = False
-        speciality = None
+        con_state = Elmenues.new_ac_menu(tmp_pass)
 
-        #TODO : ask him about if prof or no then the speciality 
+        if con_state[0] == enm.CRED_DONE : con_state[0] = enm.CON_OK
+        else : con_state[0] = enm.CON_BAD_DATA
 
-        con_state = Credentials.new_cred(tmp_pass , is_prof , speciality )
-        print (f"*New Account = ( {con_state[1]} ) has been made Successfully!*\n\n")
-        print ("sending login data via gmail service is down ..\n")
-        print("Please save your ID and Password somewhere safe...\n\n")
-        print (f"---- (USER ID = {con_state[1]} ) ----\n\n")
-        loged_menu(con_typ)
+        if con_state[0] == enm.CON_OK :
+            print (f"*New Account = ( {con_state[1]} ) has been made Successfully!*\n\n")
+            print ("sending login data via gmail service is down ..\n")
+            print("Please save your ID and Password somewhere safe...\n\n")
+            print (f"---- (USER ID = {con_state[1]} ) ----\n\n")
+            Elmenues.loged_menu(con_typ)
+        else :
+            return con_state[0] #exit UNEXEPCTEDLY and dont dump_cred might be fetal error in creadentials
 
 
 
-def main_menu() -> enm:
-    Log.new_log(enm.MAIN_MEN_OK , "Startup")
-    print("Main Menu : \n")
-    op = input(" 1) Log in\n\n 2) Create Account\n\n 3) Quit\n\n>> ")
-
-    if int(op) == 3:
-        Log.new_log(enm.MAIN_MEN_QUIT , "Quit") #type : Startup , quit ,login , new , show_log , show_cred ,  show_persons_data
-        Log.dump_log(enm.MAIN_MEN_OK)
-        Credentials.dump_cred(enm.MAIN_MEN_OK)
-        return enm.MAIN_MEN_QUIT
-    elif int(op) == 2:
-        Log.new_log(enm.MAIN_MEN_QUIT , "New")
-        connect(enm.CON_NEW)
-    elif int(op) == 1:
-        Log.new_log(enm.MAIN_MEN_QUIT , "Login")
-        connect(enm.CON_LOG)
-    else:
-        Log.new_log(enm.MAIN_MEN_ER , "Other" ) 
-        Log.dump_log(enm.MAIN_MEN_ER)
-        print("                              ***** ERROR : Invalid input *****\n")
-        time.sleep(2)
-        for i in range(2 , -1 , -1):
-            os.system(r"clear")
-            print(f"                         \nRestarting System in {i}...")
-            time.sleep(0.5)
-        os.system(r"clear")
-        main_menu()
-
-def loged_menu ( log_type :  enm ) : ...
-
-        #TODO : if not new go to sys_menu : show (log and cred and all prof and student objects only if prof ) 
-        #TODO : if stud only can view his object (add fees and mails to his object later)
-
-def sys_menu(id_type : enm) : ...
