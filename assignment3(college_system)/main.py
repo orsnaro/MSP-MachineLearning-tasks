@@ -47,33 +47,37 @@ class test :
 # print (type (red) , red)
     
 
-f = open( r"cred.txt" , 'r')
-cntr = -1
-red = ''
-while True :
-    cntr += 1
-    char = f.read(1)
-    red = red + char
-    if ( char == '') : break
-    
-cntr = 0
-dic = {}
-tmp ,tmp2 = str() , str()
-for i in  red.split() :
-    cntr += 1
-    if  cntr % 2 == 0  :
-        tmp2 = i.strip() 
-        dic[tmp] = tmp2
-    else :
-        tmp = i.strip()
+# f = open( r"cred.txt" )
 
-print (dic)
+with open('cred.txt' ) as f :
+    for line  in f :
+        print (line )
+
+# cntr = -1
+# red = ''
+# while True :
+#     cntr += 1
+#     char = f.read(1)
+#     red = red + char
+#     if ( char == '') : break
+
+# cntr = 0
+# dic = {}
+# tmp ,tmp2 = str() , str()
+# for i in  red.split() :
+#     cntr += 1
+#     if  cntr % 2 == 0  :
+#         tmp2 = i.strip() 
+#         dic[tmp] = tmp2
+#     else :
+#         tmp = i.strip()
+
+# print (dic)
         
 
-line_off = cntr 
-print ( red )
-print ( line_off )
-
+# line_off = cntr 
+# print ( red )
+# print ( line_off )
 # test.new_cred ("12345678")
 # test.new_cred ("12345678")
 # test.new_cred ("12345678")
