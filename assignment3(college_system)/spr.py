@@ -4,18 +4,16 @@ import math
 import os
 import random
 import sys
-import api_gmail
 import getpass
 import smtplib , ssl
 import numpy as np
 
      #-------------------------------USER DEFINED MODULES----------------------------------#
-import sub 
+# import sub 
 # import api_gmail
 from  enm import enm
 RUN : bool = True
 
-sub.Student
 
 
        # ----------------------------- PARENT & UNINHIRITED CLASSES -----------------------#
@@ -78,7 +76,7 @@ class Credentials:
     def dump_cred(cls, cred_state: enm) -> enm:
         cred_file = open (r"cred.txt" , 'a')
         for id , hashed  in cls.tmp_creds.items() : # write line size here : 30 each line 
-                cred_file.writelines( id + ' ' + hashed + '\n')
+                cred_file.writelines( str(id) + ' ' + str(hashed) + '\n')
         cred_file.close()
 
     @classmethod
@@ -91,7 +89,7 @@ class Credentials:
         #TODO : (append 2 digits to user id  ==> prof = 1  or stu = 0 then elec= 1 or mech= 0) userid total length 10 chars
         _pass = hash(_pass) # make sure hash seed is set to 0 !
         cls._user_id = str(random.randint(10000000,99999999))
-        cls._user_id = cls._use_id + _is_prof + _speciality
+        cls._user_id = cls._user_id + _is_prof + _speciality
         cls.tmp_creds[cls._user_id] = _pass
         cls.set_crnt_user()
         return enm.CRED_OK, cls._user_id 
@@ -105,9 +103,10 @@ class Credentials:
 
         for line in read_file : #note : each id = 10 char , each line = 30 char , EOF = ''
             tmp_id , tmp_pass = line.split()
+            print (tmp_id , tmp_pass)
             if tmp_id.strip() == _user : 
                 found = True
-                if tmp_pass.strip() == tmp_pass :
+                if tmp_pass.strip() == _hashed_pass:
                     return enm.CRED_ID_FOUND , enm.CRED_OK
                 else :
                     return enm.CRED_ID_FOUND , enm.CRED_FAIL
@@ -217,13 +216,16 @@ def main() :
 #         os.execv(sys.executable, [sys.executable] + sys.argv)
 #     return  hashseed
 
-def get_extra_data ( row_data : list ) :
+# def get_extra_data ( raw_data : list ) : # raw : enm.CRED_DONE ,  final_iD , tmp_speciality , tmp_is_prof
+#     if (raw_data[3] == '1') :
+        
+
     
 
 
 def connect(con_typ: int) -> enm:
     crnt_user = Log.crnt_user_id 
-    con_state : enm = [] 
+    con_state = None
     if con_typ == enm.CON_LOG:
         tmp_user = input ("UserID :\n>> ").strip()
         tmp_pass = hash(getpass.getpass("Password : \n>> ").strip())
@@ -238,6 +240,7 @@ def connect(con_typ: int) -> enm:
                 Elmenues.main_menu()
             elif con_state[1] == enm.CRED_FAIL :
                 print ("*WRONG PASSWORD*. please retry...\n\n")
+                con_state = list(con_state)
                 con_state[0] = enm.CON_ER
                 return (con_state[0])
 
@@ -246,13 +249,13 @@ def connect(con_typ: int) -> enm:
         #TODO : set password restrictions -> start with atleast 8 chars/numbers
         tmp_pass = hash(getpass.getpass("Password : \n>> ").strip())
         con_state = Elmenues.new_ac_menu(tmp_pass)
-
+        con_state = list(con_state)
         if con_state[0] == enm.CRED_DONE : con_state[0] = enm.CON_OK # no very imp.
         else : con_state[0] = enm.CON_BAD_DATA
 
         if con_state[0] == enm.CON_OK :
             print (f"*New Account = ( {con_state[1]} ) has been made Successfully!*\n\n")
-            get_extra_data(con_state)
+            # get_extra_data(con_state)
             print ("sending login data via gmail service is down ..\n")
             print("Please save your ID and Password somewhere safe...\n\n")
             print (f"---- (USER ID = {con_state[1]} ) ----\n\n")

@@ -18,7 +18,8 @@
 #TODO : comment and annotate the rest of non clear code blocks + each file info box like main
 #TODO : for later : make more robust exception handling + fix gmail feature +  upload cred.txt to cloud and make  cloud.py 
 
-from spr import *
+from spr import main
     
 if __name__ == "__main__":
     main()
+

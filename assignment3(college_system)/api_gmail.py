@@ -67,7 +67,7 @@ def enter_pass() :
     for i in range(len(sys_gmail_password)) :
         print ('*' ,  end ='')
     print ('\n')
-    print (sys_gmail_password)
+    print (sys_gmail_password)#for test
     return sys_gmail_password
 
 def gmail_connect() : 
@@ -100,7 +100,7 @@ def gmail_connect() :
         #try send Your message here using - > server.sendmail()
         message = """---------( *THIS IS TEST MESSAGE* )--------- \n\n\nYou Have Successfully created your College Account!\n\n 
         Please  note that you won't be able to retrieve your Login Data, \nSo keep Them somewhere  SAFE!\n\n
-        USER NAME: test_message\nPASSWORD : test_message \n\n -------*PLEASE DON'T REPLY TO THIS MESSAGE*-------"""
+        USER ID: test_message\nPASSWORD : test_message \n\n -------*PLEASE DON'T REPLY TO THIS MESSAGE*-------"""
         server.sendmail(from_sys_gmail , to_gmail_add , message)
 
     except Exception as gmail_con_err :
