@@ -1,3 +1,17 @@
+
+##########################################################################################
+#                                Programmer : Omar Rashad                                #
+#                                Version : 0.1 Beta                                      #
+#                                Date :  27 / 11 / 2022                                  #
+#                                Code Type : Mini_proj for MSP-ML Team                   #
+#                                Title : Omar's Emgineering College System               #
+#                                                                                        #
+#                                                                                        #
+#                                                                                        #
+##########################################################################################
+
+
+
 from spr import *
 
 def main() :
