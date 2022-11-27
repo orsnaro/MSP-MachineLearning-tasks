@@ -10,10 +10,6 @@ def main() :
             Log.dump_log(enm.UNKNOWN)
             print("**SYSTEM TERMINATED UNEXPECTEDLY**")
             sys.exit(enm.MAIN_MEN_ER)
-
     
 if __name__ == "__main__":
     main()
-
-
-   
