@@ -61,7 +61,7 @@ class Credentials:
     @classmethod
     def dump_cred(cls, cred_state: enm) -> enm:
         cred_file = open (r"cred.txt" , 'a')
-        for id , hashed  in cls.tmp_creds.items() : # write line size here : 
+        for id , hashed  in cls.tmp_creds.items() : # write line size here : 30 each line 
                 cred_file.writelines( id + ' ' + hashed + '\n')
         cred_file.close()
 
