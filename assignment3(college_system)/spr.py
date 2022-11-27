@@ -70,7 +70,7 @@ class Credentials:
         Log.crnt_user_id = cls._user_id
 
     @classmethod
-    def new_cred (cls , _pass : str , _is_prof : bool , _speciality : str) : #assume passwords gets here are validated before
+    def new_cred (cls , _pass : str , _is_prof : bool , _speciality : str) -> 'list': #assume passwords gets here are validated before
         #TODO :if new menue to choose  prof or stu  and mech or elec 
         #TODO : (append 2 digits to user id  ==> prof = 1  or stu = 0 then elec= 1 or mech= 0) userid total length 10 chars
         _pass = hash(_pass) # make sure hash seed is set to 0 !
@@ -81,7 +81,7 @@ class Credentials:
         return enm.CRED_OK, cls._user_id 
 
     @classmethod
-    def comp_cred(cls , _user: str , _hashed_pass : str) -> enm : 
+    def comp_cred(cls , _user: str , _hashed_pass : str) -> 'list': 
         read_file = open(r"cred.txt" , 'r') #check on users first 
         found = False
         tmp_id = None
@@ -147,10 +147,10 @@ class Elmenues :
         #TODO : if stud only can view his object (add fees and mails to his object later)
     
     @staticmethod
-    def new_ac_menu( hashed_pass : str ) -> : 
+    def new_ac_menu( hashed_pass : str ) -> 'list' : 
         tmp_is_prof = False
         tmp_speciality = None
-        final_iD =  Credentials.new_cred(tmp_pass , is_prof , speciality )
+        final_iD =  Credentials.new_cred(hashed_pass ,tmp_is_prof , tmp_speciality )
         return enm.CRED_DONE ,  final_iD
        
     @staticmethod
