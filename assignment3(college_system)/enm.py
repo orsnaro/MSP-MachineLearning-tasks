@@ -5,6 +5,7 @@ class enm: #could be done using dict
     MAIN_MEN_OK = 0
     MAIN_MEN_QUIT = 1
     MAIN_MEN_ER = 2
+    MAIN_MEN_RES = 20
     CON_ER = 3
     CON_BAD_DATA = 4
     CON_OK = 5
@@ -16,7 +17,8 @@ class enm: #could be done using dict
     CRED_FAIL = 11
     CRED_ID_FOUND = 12
     CRED_ID_NEW = 13
-    ID_PROF = 14
-    ID_STU = 15
+    CRED_DONE = 14
+    ID_PROF = 15
+    ID_STU = 16
     UNKNOWN = 100
     
