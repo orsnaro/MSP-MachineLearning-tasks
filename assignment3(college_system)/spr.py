@@ -70,12 +70,12 @@ class Credentials:
         Log.crnt_user_id = cls._user_id
 
     @classmethod
-    def new_cred (cls , _pass : str , _is_prof : bool , _speciality : str) -> 'list': #assume passwords gets here are validated before
+    def new_cred (cls , _pass : str , _is_prof : str , _speciality : str) -> 'list': #assume passwords gets here are validated before
         #TODO :if new menue to choose  prof or stu  and mech or elec 
         #TODO : (append 2 digits to user id  ==> prof = 1  or stu = 0 then elec= 1 or mech= 0) userid total length 10 chars
         _pass = hash(_pass) # make sure hash seed is set to 0 !
         cls._user_id = str(random.randint(10000000,99999999))
-        #TODO : appends two digits at end of ID to identfy prof or no and speciality
+        cls._user_id = cls._use_id + _is_prof + _speciality
         cls.tmp_creds[cls._user_id] = _pass
         cls.set_crnt_user()
         return enm.CRED_OK, cls._user_id 
@@ -148,10 +148,19 @@ class Elmenues :
     
     @staticmethod
     def new_ac_menu( hashed_pass : str ) -> 'list' : 
-        tmp_is_prof = False
+        tmp_is_prof = None
         tmp_speciality = None
+        print (" NEW Account menu : \nplease complete registration...\n\n")
+        tmp_is_prof = input("1) If You're a Professor\n\n0) If You're a Student\n>> ").strip()
+        print("\n\nChoose Department : \n\n")
+        tmp_speciality = input("1) Electrical Department \n\n0) Mechanics Department\n>> ").strip()
         final_iD =  Credentials.new_cred(hashed_pass ,tmp_is_prof , tmp_speciality )
-        return enm.CRED_DONE ,  final_iD
+        if (tmp_speciality == '1' or tmp_speciality == '0') and (tmp_is_prof == '1' or tmp_is_prof == '0'):
+            return enm.CRED_DONE ,  final_iD
+        else : 
+            print ("*Invalid Input*\n plsease retry...\n\n")
+            #TODO : test if this recursion method works if not make while loop until input has been met
+            return Elmenues.new_ac_menu(hashed_pass) #recursion magic 
        
     @staticmethod
     def sys_menu(id_type : enm) : ...
@@ -164,7 +173,7 @@ class Elmenues :
 
 def main() :
     print(" \n \n ---------------------( Welcome to Omar's Engineering College System )----------------------\n\n")
-    while  RUN : #actually its not super loop it's for error
+    while  RUN : 
         exit_state = Elmenues.main_menu() 
         if exit_state == enm.MAIN_MEN_QUIT : 
             Log.dump_log(enm.MAIN_MEN_OK)
@@ -217,7 +226,7 @@ def connect(con_typ: int) -> enm:
         tmp_pass = hash(getpass.getpass("Password : \n>> ").strip())
         con_state = Elmenues.new_ac_menu(tmp_pass)
 
-        if con_state[0] == enm.CRED_DONE : con_state[0] = enm.CON_OK
+        if con_state[0] == enm.CRED_DONE : con_state[0] = enm.CON_OK # no very imp.
         else : con_state[0] = enm.CON_BAD_DATA
 
         if con_state[0] == enm.CON_OK :
@@ -227,7 +236,7 @@ def connect(con_typ: int) -> enm:
             print (f"---- (USER ID = {con_state[1]} ) ----\n\n")
             Elmenues.loged_menu(con_typ)
         else :
-            return con_state[0] #exit UNEXEPCTEDLY and dont dump_cred might be fetal error in creadentials
+            return con_state[0] #exit UNEXEPECTEDLY and dont dump_cred() might be fetal error in creadentials
 
 
 
