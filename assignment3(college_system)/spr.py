@@ -36,7 +36,7 @@ class Log:
         cls.session_counter += 1 #maybe changed to total_logs_cntr
 
     @classmethod
-    def dump_log(cls, log_state: enm) -> enm:
+    def dump_log(cls, log_state: enm) -> enm: 
         # cls.state_holder = None
         log_file = open (r"log.txt", 'a')
         for i in range ( len(cls.tmp_logs)) :
@@ -46,8 +46,8 @@ class Log:
         log_file.close()
 
     @classmethod
-    #TODO : later add acc_id = crnt_session_user_id to new_entry()
-    def new_log (cls , state : enm , entry_type = -1) -> enm :
+    #TODO : later add acc_id = crnt_session_user_id to new_log()
+    def new_log (cls , state : enm , entry_type : str) -> enm :#entry_type : startup , quit ,login , new 
         Log.incCntr()
         cls.pc_name = getpass.getuser()
         cls.time_Stamp = datetime.datetime.now()
@@ -58,6 +58,7 @@ class Log:
 class Credentials:
     """Handled account sensitive data"""
     tmp_creds = dict() 
+    file_creds_dict = dict()
     @classmethod
     def dump_cred(cls, cred_state: enm) -> enm:
         cred_file = open (r"cred.txt" , 'a')
@@ -70,14 +71,37 @@ class Credentials:
         Log.crnt_user_id = cls._user_id
 
     @classmethod
-    def new_cred (cls , _pass : str) : #assume passwords gets here are validated before
+    def new_cred (cls , _pass : str , tmp_pass , is_prof : bool , speciality : str) : #assume passwords gets here are validated before
+        #TODO :if new menue to choose  prof or stu  and mech or elec 
+        #TODO : (append 2 digits to user id  ==> prof = 1  or stu = 0 then elec= 1 or mech= 0) userid total length 10 chars
+        #TODO : appends two digits at end of ID to identfy prof or no and speciality
         _pass = hash(_pass) # make sure hash seed is set to 0 !
         cls._user_id = str(random.randint(10000000,99999999))
         cls.tmp_creds[cls._user_id] = _pass
         cls.set_crnt_user()
+        return enm.CRED_OK, cls._user_id 
 
     @classmethod
-    def comp_cred(cls , _user: str , _hashed_pass : str) -> enm :  ...
+    def comp_cred(cls , _user: str , _hashed_pass : str) -> enm : 
+        read_file = open(r"cred.txt" , 'r') #check on users first 
+        found = False
+        tmp_id = None
+        tmp_pass =None
+
+        for line in read_file : #note : each id = 10 char , each line = 30 char , EOF = ''
+            tmp_id , tmp_pass = line.split()
+            if tmp_id.strip() == _user : 
+                found = True
+                if tmp_pass.strip() == tmp_pass :
+                    return enm.CRED_ID_FOUND , enm.CRED_OK
+                else :
+                    return enm.CRED_ID_FOUND , enm.CRED_FAIL
+
+        read_file.close() 
+        if  not found :
+            return enm.CRED_ID_NEW , enm.CON_NEW
+
+
     #search in crnt creds then on txt or read whole txt and append to creds
     
 
@@ -97,35 +121,59 @@ class Credentials:
 
 
 def connect(con_typ: int) -> enm:
-    crnt_user = Log.crnt_user_id #id of the user (objet name of Person class  childs instances)
-    con_state : enm = None
+    crnt_user = Log.crnt_user_id 
+    con_state : enm = [] 
     if con_typ == enm.CON_LOG:
         tmp_user = input ("UserID :\n>> ").strip()
         tmp_pass = hash(getpass.getpass("Password : \n>> ").strip())
-        Credentials.comp_cred(tmp_user , tmp_pass)
+        con_state= Credentials.comp_cred(tmp_user , tmp_pass)
+        if con_state[0] == enm.CRED_ID_FOUND and con_state[1] == enm.CRED_OK : #valid login
+            print ("*Signed in Successfully!*\n\n")
+            loged_menu(con_typ) 
+        else : 
+            print("*LOGIN FAIL!*\n")
+            if con_state[0] == enm.CRED_ID_NEW :
+                print ("THIS ID is *not used* . please retry ...\n\n")
+                main_menu()
+            elif con_state[1] == enm.CRED_FAIL
+                print ("*WRONG PASSWORD*. please retry...\n\n")
+                main_menu()
 
-     # search first if Person.ids -> list of objects has the account in crnt session so dont make new one
-        #if not int
-    elif con_typ == enm.CON_NEW:...
-     # search first if Person.ids -> list of objects has the account in crnt session so dont make new one
+    elif con_typ == enm.CON_NEW:
+        tmp_user = input ("UserID :\n>> ").strip()
+        tmp_pass = hash(getpass.getpass("Password : \n>> ").strip())
+        is_prof = False
+        Speciality = None
+
+        #TODO : ask him about if prof or no then the speciality 
+
+        con_state = Credentials.new_cred(tmp_pass , is_prof : bool , speciality : str )
+        print (f"*New Account = ( {con_state[1]} ) has been made Successfully!*\n\n")
+        print ("sending login data via gmail service is down ..\n")
+        print("Please save your ID and Password somewhere safe...\n\n")
+        print (f"---- (USER ID = {con_state[1]} ) ----\n\n")
+        loged_menu(con_typ)
+
 
 
 def main_menu() -> enm:
-    Log.new_entry(enm.MAIN_MEN_OK)
+    Log.new_log(enm.MAIN_MEN_OK)
     print("Main Menu : \n")
     op = input(" 1) Log in\n\n 2) Create Account\n\n 3) Quit\n\n>> ")
 
     if int(op) == 3:
-        Log.new_entry(enm.MAIN_MEN_QUIT)
+        Log.new_log(enm.MAIN_MEN_QUIT , "Quit") #type : Startup , quit ,login , new 
         Log.dump_log(enm.MAIN_MEN_OK)
         Credentials.dump_cred(enm.MAIN_MEN_OK)
         return enm.MAIN_MEN_QUIT
     elif int(op) == 2:
         connect(enm.CON_NEW)
+        Log.new_log(enm.MAIN_MEN_QUIT , "New")
     elif int(op) == 1:
         connect(enm.CON_LOG)
+        Log.new_log(enm.MAIN_MEN_QUIT , "Login")
     else:
-        Log.new_entry(enm.MAIN_MEN_ER)
+        Log.new_log(enm.MAIN_MEN_ER , "Startup" ) 
         Log.dump_log(enm.MAIN_MEN_ER)
         print("                              ***** ERROR : Invalid input *****\n")
         time.sleep(2)
@@ -135,3 +183,10 @@ def main_menu() -> enm:
             time.sleep(0.5)
         os.system(r"clear")
         main_menu()
+
+def loged_menu ( log_type :  enm ) : ...
+
+        #TODO : if not new go to sys_menu : show (log and cred and all prof and student objects only if prof ) 
+        #TODO : if stud only can view his object (add fees and mails to his object later)
+
+def sys_menu(id_type : enm) : ...

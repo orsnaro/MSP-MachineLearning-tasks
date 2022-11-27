@@ -1,4 +1,4 @@
-class enm:
+class enm: #could be done using dict 
     """since python doesnt has enum data-type 
     all funtion states will use this values 
     to implement good program signaling"""
@@ -14,4 +14,8 @@ class enm:
     GMAIL_BAD = 9
     CRED_OK = 10
     CRED_FAIL = 11
+    CRED_ID_FOUND = 12
+    CRED_ID_NEW = 13
+    ID_PROF = 14
+    ID_STU = 15
     
