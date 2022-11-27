@@ -18,4 +18,5 @@ class enm: #could be done using dict
     CRED_ID_NEW = 13
     ID_PROF = 14
     ID_STU = 15
+    UNKNOWN = 100
     

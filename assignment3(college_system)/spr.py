@@ -41,7 +41,7 @@ class Log:
         log_file = open (r"log.txt", 'a')
         for i in range ( len(cls.tmp_logs)) :
             for log in cls.tmp_logs[i] :
-                log_file.writelines(log + ' ')
+                log_file.writelines(str(log) + ' ')
             log_file.writelines('\n')
         log_file.close()
 
@@ -50,7 +50,7 @@ class Log:
     def new_log (cls , state : enm , entry_type : str) -> enm :#entry_type : startup , quit ,login , new 
         Log.incCntr()
         cls.pc_name = getpass.getuser()
-        cls.time_Stamp = datetime.datetime.now()
+        cls.time_stamp = datetime.datetime.now()
         instance = [str(cls.time_stamp) , str(state) ,\
                     str(entry_type) , str(cls.pc_name) , cls.crnt_user_id ]
         cls.tmp_logs.append(instance)
@@ -70,7 +70,7 @@ class Credentials:
         Log.crnt_user_id = cls._user_id
 
     @classmethod
-    def new_cred (cls , _pass : str , tmp_pass , is_prof : bool , speciality : str) : #assume passwords gets here are validated before
+    def new_cred (cls , _pass : str , is_prof : bool , speciality : str) : #assume passwords gets here are validated before
         #TODO :if new menue to choose  prof or stu  and mech or elec 
         #TODO : (append 2 digits to user id  ==> prof = 1  or stu = 0 then elec= 1 or mech= 0) userid total length 10 chars
         #TODO : appends two digits at end of ID to identfy prof or no and speciality
@@ -139,7 +139,8 @@ def connect(con_typ: int) -> enm:
                 main_menu()
 
     elif con_typ == enm.CON_NEW:
-        tmp_user = input ("UserID :\n>> ").strip()
+        print("*User-ID Will Be Generated Auto*\n")
+        #TODO : set password restrictions -> start with atleast 8 chars/numbers
         tmp_pass = hash(getpass.getpass("Password : \n>> ").strip())
         is_prof = False
         speciality = None
@@ -156,7 +157,7 @@ def connect(con_typ: int) -> enm:
 
 
 def main_menu() -> enm:
-    Log.new_log(enm.MAIN_MEN_OK)
+    Log.new_log(enm.MAIN_MEN_OK , "Startup")
     print("Main Menu : \n")
     op = input(" 1) Log in\n\n 2) Create Account\n\n 3) Quit\n\n>> ")
 
@@ -166,13 +167,13 @@ def main_menu() -> enm:
         Credentials.dump_cred(enm.MAIN_MEN_OK)
         return enm.MAIN_MEN_QUIT
     elif int(op) == 2:
-        connect(enm.CON_NEW)
         Log.new_log(enm.MAIN_MEN_QUIT , "New")
+        connect(enm.CON_NEW)
     elif int(op) == 1:
-        connect(enm.CON_LOG)
         Log.new_log(enm.MAIN_MEN_QUIT , "Login")
+        connect(enm.CON_LOG)
     else:
-        Log.new_log(enm.MAIN_MEN_ER , "Startup" ) 
+        Log.new_log(enm.MAIN_MEN_ER , "Other" ) 
         Log.dump_log(enm.MAIN_MEN_ER)
         print("                              ***** ERROR : Invalid input *****\n")
         time.sleep(2)
