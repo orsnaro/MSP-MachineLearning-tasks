@@ -218,7 +218,7 @@ def main() :
 #     return  hashseed
 
 def get_extra_data ( row_data : list ) :
-    if ()
+    
 
 
 def connect(con_typ: int) -> enm:
