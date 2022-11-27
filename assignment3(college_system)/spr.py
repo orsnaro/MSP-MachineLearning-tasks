@@ -53,7 +53,6 @@ class Log:
         cls.time_Stamp = datetime.datetime.now()
         instance = [str(cls.time_stamp) , str(state) ,\
                     str(entry_type) , str(cls.pc_name) , cls.crnt_user_id ]
-
         cls.tmp_logs.append(instance)
 class Credentials:
     """Handled account sensitive data"""
@@ -135,7 +134,7 @@ def connect(con_typ: int) -> enm:
             if con_state[0] == enm.CRED_ID_NEW :
                 print ("THIS ID is *not used* . please retry ...\n\n")
                 main_menu()
-            elif con_state[1] == enm.CRED_FAIL
+            elif con_state[1] == enm.CRED_FAIL :
                 print ("*WRONG PASSWORD*. please retry...\n\n")
                 main_menu()
 
@@ -143,11 +142,11 @@ def connect(con_typ: int) -> enm:
         tmp_user = input ("UserID :\n>> ").strip()
         tmp_pass = hash(getpass.getpass("Password : \n>> ").strip())
         is_prof = False
-        Speciality = None
+        speciality = None
 
         #TODO : ask him about if prof or no then the speciality 
 
-        con_state = Credentials.new_cred(tmp_pass , is_prof : bool , speciality : str )
+        con_state = Credentials.new_cred(tmp_pass , is_prof , speciality )
         print (f"*New Account = ( {con_state[1]} ) has been made Successfully!*\n\n")
         print ("sending login data via gmail service is down ..\n")
         print("Please save your ID and Password somewhere safe...\n\n")
