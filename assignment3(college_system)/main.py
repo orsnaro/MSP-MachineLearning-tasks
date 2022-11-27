@@ -36,10 +36,21 @@ class test :
         cls.tmp_creds[cls._user_id] = _pass
         cls.set_crnt_user()
 
-test.new_cred ("12345678")
-test.new_cred ("12345678")
-test.new_cred ("12345678")
-test.new_cred ("12345678")
-test.new_cred ("12345678")
+# get credential from text sample code 
+f = open( r"cred.txt" , 'r')
+red = f.read(28)
+red.strip()
+id , hashed = red.split(' ')
+print ( id ,hashed )
+print (type (red) , red)
+# while True :
 
-test.dump_cred(enm.CON_BAD_DATA)
+    
+
+# test.new_cred ("12345678")
+# test.new_cred ("12345678")
+# test.new_cred ("12345678")
+# test.new_cred ("12345678")
+# test.new_cred ("12345678")
+
+# test.dump_cred(enm.CON_BAD_DATA)
