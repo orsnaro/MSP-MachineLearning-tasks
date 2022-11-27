@@ -9,18 +9,34 @@ import getpass
 import smtplib , ssl
 import numpy as np
 
+     #-------------------------------USER DEFINED MODULES----------------------------------#
+import sub 
+# import api_gmail
 from  enm import enm
 RUN : bool = True
 
+sub.Student
 
 
-       # ----------------------------- PARENT CLASSES -------------------------------------#
+       # ----------------------------- PARENT & UNINHIRITED CLASSES -----------------------#
 class Person:
-    ids = []
+    ids_student = [] #2 lists of dicts each dict  (objects names is id number) (only strings of ids for now)
+    ids_prof = [] 
 
-class Building: ...
+    def __init__(self ,  id : str , name : str , age : int  , is_prof : bool , speciality : str) -> None:
+        self.id = id #could make em in one line i know
+        self.name = name
+        self.age = age 
+        self.is_prof = is_prof
+        self.speciality = speciality
+    # def get_id( _id : str) : ...
+    # def get_name( _fname : str )  : ...
+        
 
-class Speciality: ...
+
+# class Building: ... #number  #capacity #schedule(no names only time that it's occubied through week dict())
+
+# class Speciality: ...
 
 
 class Log:
@@ -144,7 +160,7 @@ class Elmenues :
     @staticmethod
     def loged_menu ( log_type :  enm ) : ...
         #TODO : if not new go to sys_menu : show (log and cred and all prof and student objects only if prof ) 
-        #TODO : if stud only can view his object (add fees and mails to his object later)
+        #TODO : if student he  only can view his object (add fees and mails and shedule to his object later)
     
     @staticmethod
     def new_ac_menu( hashed_pass : str ) -> 'list' : 
@@ -156,7 +172,8 @@ class Elmenues :
         tmp_speciality = input("1) Electrical Department \n\n0) Mechanics Department\n>> ").strip()
         final_iD =  Credentials.new_cred(hashed_pass ,tmp_is_prof , tmp_speciality )
         if (tmp_speciality == '1' or tmp_speciality == '0') and (tmp_is_prof == '1' or tmp_is_prof == '0'):
-            return enm.CRED_DONE ,  final_iD
+            #TODO : YUO ready now to initiate new person child object
+            return enm.CRED_DONE ,  final_iD , tmp_speciality , tmp_is_prof
         else : 
             print ("*Invalid Input*\n plsease retry...\n\n")
             #TODO : test if this recursion method works if not make while loop until input has been met
@@ -164,7 +181,8 @@ class Elmenues :
        
     @staticmethod
     def sys_menu(id_type : enm) : ...
-
+    #TODO : if prof .show log  , show cred , show student odjects (later m add to shedule)
+    #TODO : if student show shedule  and show only object with same user_id (optional show fees ) each one start with 780Le fees
 
 
 
@@ -199,6 +217,9 @@ def main() :
 #         os.execv(sys.executable, [sys.executable] + sys.argv)
 #     return  hashseed
 
+def get_extra_data ( row_data : list ) :
+    if ()
+
 
 def connect(con_typ: int) -> enm:
     crnt_user = Log.crnt_user_id 
@@ -231,6 +252,7 @@ def connect(con_typ: int) -> enm:
 
         if con_state[0] == enm.CON_OK :
             print (f"*New Account = ( {con_state[1]} ) has been made Successfully!*\n\n")
+            get_extra_data(con_state)
             print ("sending login data via gmail service is down ..\n")
             print("Please save your ID and Password somewhere safe...\n\n")
             print (f"---- (USER ID = {con_state[1]} ) ----\n\n")
