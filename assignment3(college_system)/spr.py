@@ -47,7 +47,8 @@ class Log:
 
     @classmethod
     #TODO : later add acc_id = crnt_session_user_id to new_log()
-    def new_log (cls , state : enm , entry_type : str) -> enm :#entry_type : startup , quit ,login , new 
+    def new_log (cls , state : enm , entry_type : str) -> enm : 
+        #entry_type : Startup , quit ,login , new , show_log , show_cred ,  show_persons_data
         Log.incCntr()
         cls.pc_name = getpass.getuser()
         cls.time_stamp = datetime.datetime.now()
@@ -109,6 +110,7 @@ class Credentials:
 
 
 # ------------------------------- GLOBAL  METHODS --------------------------------
+#TODO : but all main funcs variation in one calss Elmainues and make them all static 
 
 # def disable_rand_hash() -> None:
 #     """WARNING THIS FUNCTION MAY CHANGE BUILT-IN 'hash()' *permenentally!!!*"""
@@ -161,7 +163,7 @@ def main_menu() -> enm:
     op = input(" 1) Log in\n\n 2) Create Account\n\n 3) Quit\n\n>> ")
 
     if int(op) == 3:
-        Log.new_log(enm.MAIN_MEN_QUIT , "Quit") #type : Startup , quit ,login , new 
+        Log.new_log(enm.MAIN_MEN_QUIT , "Quit") #type : Startup , quit ,login , new , show_log , show_cred ,  show_persons_data
         Log.dump_log(enm.MAIN_MEN_OK)
         Credentials.dump_cred(enm.MAIN_MEN_OK)
         return enm.MAIN_MEN_QUIT
