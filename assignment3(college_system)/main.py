@@ -3,7 +3,7 @@
 #                                Programmer : Omar Rashad                                #
 #                                Version : 0.1 Beta                                      #
 #                                Date :  27 / 11 / 2022                                  #
-#                                Code Type : Mini_proj for MSP-ML Committe                   #
+#                                Code Type : Mini_proj for MSP-ML Committe               #
 #                                Title : Omar's Emgineering College System               #
 #                                                                                        #
 #                                                                                        #
