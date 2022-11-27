@@ -101,7 +101,6 @@ class Credentials:
             return enm.CRED_ID_NEW , enm.CON_NEW
 
 
-    #search in crnt creds then on txt or read whole txt and append to creds
     
 
 
