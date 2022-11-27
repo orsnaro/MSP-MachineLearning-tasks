@@ -4,8 +4,10 @@ def main() :
     print(" \n \n ---------------------( Welcome to Omar's Engineering College System )----------------------\n\n")
     while  RUN :
         exit_state = main_menu() 
-        if not exit_state  : sys.exit(enm.MAIN_MEN_OK)
+        if exit_state == enm.MAIN_MEN_QUIT : sys.exit(enm.MAIN_MEN_OK) 
         else : 
+            Log.new_log(enm.UNKNOWN , "Other" ) 
+            Log.dump_log(enm.UNKNOWN)
             print("**SYSTEM TERMINATED UNEXPECTEDLY**")
             sys.exit(enm.MAIN_MEN_ER)
 
