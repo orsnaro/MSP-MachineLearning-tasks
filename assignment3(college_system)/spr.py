@@ -27,7 +27,7 @@ class Person:
         self.age = age 
         self.is_prof = is_prof
         self.speciality = speciality
-        
+
     def get_id( _id : str) : ...
     def get_name( _fname : str )  : ...
         
@@ -249,10 +249,9 @@ def get_extra_data ( _final_id : str ) : # id : str , name : str , age : int  , 
         _speciality = "Electrical"
     else : 
         _speciality = "Mechanical"
-    if is_prof :
       #TODO TODO : find way to make this file see chils in sub.py  
-        Person.ids_prof.append([_final_id] = [f"name : {name}" , f"age : {age}" , f"Previlage : {'Professor' if is_prof == True else 'Student' }" , f"Department: {_speciality}" , ] 
-
+    if is_prof :
+        prof_obj = Prof()
     
       
 
