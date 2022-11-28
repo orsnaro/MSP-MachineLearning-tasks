@@ -20,22 +20,22 @@
 
 # from spr import main
     
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()
 
-prof = False
-lis = []
-class test :
+# prof = False
+# lis = []
+# class test :
 
-    def __init__(self , name) -> None:
-        self.name = name
-        self.save_id()
-    def save_id (self) :
-        lis.append(self.name)
+#     def __init__(self , name) -> None:
+#         self.name = name
+#         self.save_id()
+#     def save_id (self) :
+#         lis.append(self.name)
         
-a = test('omar')       
-print (lis)
+# a = test('omar')       
+# print (lis)
 
 
 
-print (f"oamr :  { 'true' if prof is True else 'false'}")
+# print (f"oamr :  { 'true' if prof is True else 'false'}")
