@@ -20,22 +20,27 @@
 
 # from spr import main
     
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
+lis = []
+class Student :  #study_year  #current_GPA  #fees_must_pay
 
-# prof = False
-# lis = []
-# class test :
+   def __init__(self, id: str, name: str, age: int, is_prof: bool, speciality: str , year : int ,  GPA : float ) -> None:
+        self.id = id #could make em in one line i know
+        self.name = name
+        self.age = age 
+        self.is_prof = is_prof
+        self.speciality = speciality
+        self.year = year
+        self.GPA = GPA
+        self.save_id()
+   
+   def make_tmp_dic (self) :
+      self.tmp_dic[self.id] = [f"name : {self.name}" , f"age : {self.age}" , f"Previlage : {'Professor' if self.is_prof == True else 'Student' }" , f"Department : {self.speciality}" , f"Study Year : {self.year}" , f"Current GPA : {self.GPA}"  ]
 
-#     def __init__(self , name) -> None:
-#         self.name = name
-#         self.save_id()
-#     def save_id (self) :
-#         lis.append(self.name)
-        
-# a = test('omar')       
-# print (lis)
+   def save_id(self) : 
+      lis.append(self.tmp_dic) 
 
 
-
-# print (f"oamr :  { 'true' if prof is True else 'false'}")
+s1 = Student("1313" , 'omar' , 21 , True , "elec" , 21 , 4.1 )
+print (lis)
