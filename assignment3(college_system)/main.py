@@ -18,8 +18,24 @@
 #TODO : comment and annotate the rest of non clear code blocks + each file info box like main
 #TODO : for later : make more robust exception handling + fix gmail feature +  upload cred.txt to cloud and make  cloud.py 
 
-from spr import main
+# from spr import main
     
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
 
+prof = False
+lis = []
+class test :
+
+    def __init__(self , name) -> None:
+        self.name = name
+        self.save_id()
+    def save_id (self) :
+        lis.append(self.name)
+        
+a = test('omar')       
+print (lis)
+
+
+
+print (f"oamr :  { 'true' if prof is True else 'false'}")
