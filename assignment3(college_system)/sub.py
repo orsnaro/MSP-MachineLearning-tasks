@@ -1,30 +1,28 @@
 from spr import *
 
    #----------------------------------------CHILD CLASSES -----------------------------------------#
-#prof rank: teach asis , lecturer , asis.prof ,  associate.prof , prof 
-#salary :  i know we all want to know :) #speciality #courses he teach 
 class Prof ( Person ) : 
-   def save_id(self) : 
-      Person.ids_prof.append([self.id] = [f"name : {self.name}" , f"age : {self.age}" , f"Previlage : {'Professor' if self.is_prof == True else 'Student' }" , f"Department : {self.speciality}" , f"Academic Rank : {self.rank}" , f"Salary : {self.salary}"  ] )
-
+   def save_id(self) : ... #to make __init__() see it 
    def __init__(self, id: str, name: str, age: int, is_prof: bool, speciality: str , rank : int , salary : float) -> None:
       super().__init__(id, name, age, is_prof, speciality)
       self.rank = rank
       self.salary = salary
+      self.tmp_dic[self.id] = [f"name : {self.name}" , f"age : {self.age}" , f"Previlage : {'Professor' if self.is_prof == True else 'Student' }" , f"Department : {self.speciality}" , f"Academic Rank : {self.rank}" , f"Salary : {self.salary}"  ] 
       self.save_id()
 
+   def save_id(self) :
+      Person.ids_prof.append(self.tmp_dic) 
 
 
-class Student ( Person ) :  #study_year  #current_GPA  #fees_must_pay
+class Student ( Person ) :  
 
+   def save_id(self) : ... #to make __init__() see it 
    def __init__(self, id: str, name: str, age: int, is_prof: bool, speciality: str , year : int ,  GPA : float ) -> None:
       super().__init__(id, name, age, is_prof, speciality)
       self.year = year
       self.GPA = GPA
-      self.save_id()
-   
-   def make_tmp_dic (self) :
       self.tmp_dic[self.id] = [f"name : {self.name}" , f"age : {self.age}" , f"Previlage : {'Professor' if self.is_prof == True else 'Student' }" , f"Department : {self.speciality}" , f"Study Year : {self.year}" , f"Current GPA : {self.GPA}"  ]
+      self.save_id()
 
    def save_id(self) : 
       Person.ids_student.append(self.tmp_dic) 
