@@ -251,7 +251,9 @@ def get_extra_data ( _final_id : str ) : # id : str , name : str , age : int  , 
         _speciality = "Mechanical"
       #TODO TODO : find way to make this file see chils in sub.py  
     if is_prof :
-        prof_obj = Prof()
+        prof_obj = Prof(_final_id , name , age , is_prof , _speciality , rank , salary)
+    else :
+        stud_obj = Strudent(_final_id , name , age , is_prof , _speciality , year , last_gpa)
     
       
 
