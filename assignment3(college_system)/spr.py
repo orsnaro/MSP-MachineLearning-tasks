@@ -24,7 +24,6 @@ import smtplib , ssl
 import numpy as np
 
      #-------------------------------USER DEFINED MODULES----------------------------------#
-# import sub 
 import api_gmail
 from  enm import enm
 RUN : bool = True
@@ -89,7 +88,7 @@ class Credentials:
     tmp_creds = dict() 
     file_creds_dict = dict()
     @classmethod
-    def dump_cred(cls, cred_state: enm) -> enm:
+    def dump_cred(cls, cred_state: enm) -> None:
         cred_file = open (r"cred.txt" , 'a')
         for id , hashed  in cls.tmp_creds.items() : # write line size here : 30 each line 
                 cred_file.writelines( str(id) + ' ' + str(hashed) + '\n')
