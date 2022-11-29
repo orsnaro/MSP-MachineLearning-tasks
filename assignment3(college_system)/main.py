@@ -19,7 +19,6 @@
 #TODO : for later : make more robust exception handling + 
 #TODO:fix gmail feature +  upload cred.txt to cloud using google cloud console  and make  api_gmail_drive.py 
 #TODO : do .pyi     for : spr.py , sup.py , api_gmail.py
-
 from spr import main
     
 if __name__ == "__main__":
