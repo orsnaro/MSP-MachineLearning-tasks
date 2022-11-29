@@ -4,8 +4,8 @@
 #                                                                                        #
 #                          Programmer : Omar Rashad                                      #
 #                          Version : v0.4 Beta                                           #
-#                          Date :  27 / 11 / 2022                                        #
-#                          Code Type :  spr.py.Mini_proj for MSP-ML Committe             #
+#                          Date :  29 / 11 / 2022                                        #
+#                          Code Type :  spr.py => Mini_proj for MSP-ML Committe          #
 #                          Title : Omar's Emgineering College System                     #
 #                          Interpreter : cPython  v3.11.0 [Compiler : MSC v.1933 AMD64]  #
 #                                                                                        #
@@ -65,7 +65,7 @@ class Log:
         cls.session_counter += 1 #maybe changed to total_logs_cntr
 
     @classmethod
-    def dump_log(cls, log_state: enm) -> enm: 
+    def dump_log(cls, log_state: enm) -> None: 
         # cls.state_holder = None
         log_file = open (r"log.txt", 'a')
         for i in range ( len(cls.tmp_logs)) :
@@ -76,7 +76,7 @@ class Log:
 
     @classmethod
     #TODO : later add acc_id = crnt_session_user_id to new_log()
-    def new_log (cls , state : enm , entry_type : str) -> enm : 
+    def new_log (cls , state : enm , entry_type : str) -> None : 
         #entry_type : Startup , quit ,login , new , show_log , show_cred ,  show_persons_data
         Log.incCntr()
         cls.pc_name = getpass.getuser()
@@ -138,7 +138,7 @@ class Credentials:
         if  not found :
             return enm.CRED_ID_NEW , enm.CON_NEW , _user
 
-class Elmenues :
+class Elmenues : #TODO : print() to print line separator between menue ( and some other lite formatting)
     @staticmethod
     def main_menu() -> enm:
         main_men_state = None
@@ -184,11 +184,6 @@ class Elmenues :
             else : return enm.MAIN_MEN_RES
 
     @staticmethod
-    def loged_menu ( log_type :  enm ) : ...
-        #TODO : if not new go to sys_menu : show (log and cred and all prof and student objects only if prof ) 
-        #TODO : if student he  only can view his object (add fees and mails and shedule to his object later)
-    
-    @staticmethod
     def new_ac_menu( hashed_pass : str ) -> 'tuple' : 
         tmp_is_prof = None
         tmp_speciality = None
@@ -206,6 +201,12 @@ class Elmenues :
             print ("*Invalid Input*\n plsease retry...\n\n")
             #TODO : test if this recursion method works if not make while loop until input has been met
             return Elmenues.new_ac_menu(hashed_pass) #recursion magic 
+
+    @staticmethod
+    def loged_menu ( log_type :  enm  , speciality : 'str ') : ...
+        #TODO : if not new go to sys_menu : show (log and cred and all prof and student objects only if prof ) 
+        #TODO : if student he  only can view his object (add fees and mails and shedule to his object later)
+    
        
     @staticmethod
     def sys_menu(id_type : enm) : ...
@@ -252,7 +253,7 @@ def get_extra_data ( _final_id : str ) : # id : str , name : str , age : int  , 
     name  = input (f"Please fill Your Personal Info :\nName:\n>> ")
     age = int(input ("\nAge:\n >> "))#could get it from birthday 
 
-    if _final_id[-2]  == '1' :
+    if _final_id[-2]  == '1' : 
         is_prof = True
         rank = input("\nAcademic Rank :\n>> ")
         salary = input("\nSalary :\n>> ")
