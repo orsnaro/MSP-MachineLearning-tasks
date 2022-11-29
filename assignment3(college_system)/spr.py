@@ -237,7 +237,7 @@ def get_extra_data ( _final_id : str ) : # id : str , name : str , age : int  , 
     name  = input (f"Please fill Your Personal Info :\nName:\n>> ")
     age = int(input ("\nAge:\n >> "))#could get it from birthday 
 
-    if _final_id[-2]  is '1' :
+    if _final_id[-2]  == '1' :
         is_prof = True
         rank = input("\nAcademic Rank :\n>> ")
         salary = input("\nSalary :\n>> ")
@@ -245,15 +245,16 @@ def get_extra_data ( _final_id : str ) : # id : str , name : str , age : int  , 
         is_prof = False
         year = input ("\nStudy Year:\n>>  ")
         last_gpa = input("\nLast GPA:\n>> ")
-    if _final_id[-1] is '1' :
+    if _final_id[-1] == '1' :
         _speciality = "Electrical"
     else : 
         _speciality = "Mechanical"
       #TODO TODO : find way to make this file see chils in sub.py  
+    from sub import Prof , Student 
     if is_prof :
         prof_obj = Prof(_final_id , name , age , is_prof , _speciality , rank , salary)
     else :
-        stud_obj = Strudent(_final_id , name , age , is_prof , _speciality , year , last_gpa)
+        stud_obj = Student(_final_id , name , age , is_prof , _speciality , year , last_gpa)
     
       
 
@@ -294,13 +295,17 @@ def connect(con_typ: int) -> enm:
 
         if con_state[0] == enm.CON_OK :
             print (f"*New Account = ( {con_state[1]} ) has been made Successfully!*\n\n")
-            get_extra_data(con_state[1])#return final_id
+
+            get_extra_data(con_state[1])#con_state[1] = final_id
+
             print ("sending login data via gmail service is down ..\n")#TODO remove it if didn't work before presentation
             print("Please save your ID and Password somewhere safe...\n\n")
             print (f"---- (USER ID = {con_state[1]} ) ----\n\n")
             Elmenues.loged_menu(con_typ)
         else :
             return con_state[0] #exit UNEXEPECTEDLY and dont dump_cred() might be fetal error in creadentials
+
+
 
 
 
