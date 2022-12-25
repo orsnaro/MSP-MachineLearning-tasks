@@ -138,7 +138,7 @@ class Credentials:
             return enm.CRED_ID_NEW , enm.CON_NEW , _user
 
 class Elmenues : #TODO : print() to print line separator between menue ( and some other lite formatting)
-    @staticmethod
+    @staticmethod 
     def main_menu() -> enm:
         main_men_state = None
         Log.new_log(enm.MAIN_MEN_OK , "Startup")
@@ -234,6 +234,7 @@ def main() :
             Log.dump_log(enm.UNKNOWN)
             print("**SYSTEM TERMINATED UNEXPECTEDLY**")
             sys.exit(enm.MAIN_MEN_ER)
+
 
 # def disable_rand_hash_seed() -> 'str': 
 #     """
