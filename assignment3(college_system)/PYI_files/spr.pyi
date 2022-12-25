@@ -40,7 +40,7 @@ class Person:
 
 class Building :
         def __init__(self) -> None: ...
-    
+        
 class Speciality :
         def __init__(self) -> None: ...
 
